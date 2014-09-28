@@ -19,7 +19,7 @@ data:
         db ' Big fucking question.  _/',0x0
 
     .fill:
-        times 224 - ( $ - $$ ) db 0x90
+        times 256 - ( $ - $$ ) db 0x90
 
 main:
     mov bx, 0x8
@@ -76,7 +76,7 @@ end:
     mov word [ds:0x72], 0x1234
     jmp 0xffff:0
     
-    .fill:
-        times 510 - ( $ - $$ ) db 0x90
-    .bootflag:
-        dw 0xAA55
+fill:
+        times 446 - ( $ - $$ ) db 0x90  ; NOPs
+        times 510 - ( $ - $$ ) db 0x00  ; Partition table goes here
+        dw 0xAA55                       ; Boot flag
